@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  image-store:
+    image: docker.io/minio/minio:RELEASE.2022-07-08T00-05-23Z
+    restart: always
+    ports:
+      - 32030:9000
+      - 32031:9001
+    command: server /data --console-address ':9001'
+    volumes:
+      - type: bind
+        target: /data
+        source: ./.data/s3
+        bind:
+          create_host_path: true
+    environment:
+      MINIO_ROOT_USER: sanekD0omfist
+      MINIO_ROOT_PASSWORD: eg0rhanZo
+      MINIO_SITE_REGION: us-west-1
